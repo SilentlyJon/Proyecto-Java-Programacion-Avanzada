@@ -15,6 +15,34 @@ public class Proyecto {
         this.departamentos = new ArrayList<>();
     }
     
+    public void agregarDepartamento(Departamento departamento){
+        departamentos.add(departamento);
+    }
+    
+    public void eliminarDepartamento(String id){
+        Departamento departamento = buscarDepartamento(id);
+        if(departamento != null){
+            departamentos.remove(departamento);
+        }
+    }
+
+    public void modificarDepartamento(String id, int nuevoNumero, double nuevoMetrosCuadrados, double nuevoPrecioBase, NivelDemanda nuevaDemanda, EstadoDepartamento nuevoEstado){
+        Departamento departamento = buscarDepartamento(id);
+        if(departamento != null){
+            departamento.setNumero(nuevoNumero);
+            departamento.setMetrosCuadrados(nuevosMetrosCuadrados);
+            departamento.setPrecioBase(nuevoPrecioBase);
+            departamento.setDemanda(nuevaDemanda);
+            departamento.setEstado(nuevoEstado);
+        }
+    }
+    
+    public void mostrarDepartamento(){
+        for(Departamento departamento : departamentos){
+            System.out.println(departamento.mostrarInformacion());
+        }
+    }
+
     public String getCodigo(){
         return codigo;
     }
@@ -38,12 +66,18 @@ public class Proyecto {
     public void setUbicacion(String ubicacion){
         this.ubicacion = ubicacion;
     }
-    public NivelDemanda getDemanda(NivelDemanda){
+    public NivelDemanda getDemanda(NivelDemanda demanda){
         return demanda;
     }
 
     public void setDemanda(NivelDemanda demanda){
         this.demanda = demanda;
     }
-
+    
+    public String toString(){
+        return "Codigo: " + codigo
+                + "| Nombre: " + nombre
+                + "| Ubicacion: " + ubicacion
+                + "| Demanda: " + demanda;
+    }
 }
