@@ -31,6 +31,7 @@ public abstract class Departamento{
      * Método abstracto: cada subclase decide cómo calcula su precio final
      * a partir del precio base y la demanda.
      */
+
     public abstract double calcularPrecioFinal();
 
     /**
