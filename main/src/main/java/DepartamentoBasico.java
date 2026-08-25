@@ -7,4 +7,9 @@ public class DepartamentoBasico extends Departamento{
     public double calcularPrecioFinal(){
         return getPrecioBase(); 
     }
+    
+    @Override
+    public String mostrarInformacion(){
+       return super.mostarInformacion() + " | Tipo: Basico";
+    }
 }
