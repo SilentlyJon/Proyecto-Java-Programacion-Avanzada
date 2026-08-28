@@ -1,5 +1,5 @@
-package <default package>;
 
+package com.mycompany.proyecto.modelo;
 import java.util.HashMap;
 import java.util.Map;
 

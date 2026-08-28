@@ -1,7 +1,9 @@
 package com.mycompany.main;
 
+import com.mycompany.proyecto.menu.MenuConsola;
+import com.mycompany.proyecto.modelo.Inmobiliaria;
 import java.util.Scanner;
-import <default package>.Inmobiliaria;
+
 
 public class Main {
     public static void main(String[] args) {

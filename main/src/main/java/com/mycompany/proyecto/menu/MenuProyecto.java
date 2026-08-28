@@ -1,9 +1,9 @@
-package com.mycompany.main;
+package com.mycompany.proyecto.menu;
 
+import com.mycompany.proyecto.modelo.Proyecto;
+import com.mycompany.proyecto.modelo.NivelDemanda;
+import com.mycompany.proyecto.modelo.Inmobiliaria;
 import java.util.Scanner;
-import <default package>.Inmobiliaria;
-import <default package>.Proyecto;
-import <default package>.NivelDemanda;
 
 public class MenuProyecto {
     private Inmobiliaria inmobiliaria;
