@@ -1,3 +1,5 @@
+package <default package>;
+
 import java.util.ArrayList;
 
 public class Proyecto {
@@ -30,7 +32,7 @@ public class Proyecto {
         Departamento departamento = buscarDepartamento(id);
         if(departamento != null){
             departamento.setNumero(nuevoNumero);
-            departamento.setMetrosCuadrados(nuevosMetrosCuadrados);
+            departamento.setMetrosCuadrados(nuevoMetrosCuadrados);
             departamento.setPrecioBase(nuevoPrecioBase);
             departamento.setDemanda(nuevaDemanda);
             departamento.setEstado(nuevoEstado);
@@ -42,20 +44,28 @@ public class Proyecto {
             System.out.println(departamento.mostrarInformacion());
         }
     }
-
+    
+    public Departamento buscarDepartamento(String id){
+        for(Departamento departamento : departamentos){
+            if(departamento.getId().equals(id)){
+                return departamento;
+            }
+        }
+        return null;
+    }
     public String getCodigo(){
         return codigo;
     }
 
-    public void set(String codigo){
+    public void setCodigo(String codigo){
         this.codigo = codigo;
     }
 
-    public String getNombre(String nombre){
+    public String getNombre(){
         return nombre;
     }
 
-    public void setNombre(){
+    public void setNombre(String nombre){
         this.nombre = nombre;
     }
 
@@ -66,7 +76,7 @@ public class Proyecto {
     public void setUbicacion(String ubicacion){
         this.ubicacion = ubicacion;
     }
-    public NivelDemanda getDemanda(NivelDemanda demanda){
+    public NivelDemanda getDemanda(){
         return demanda;
     }
 
