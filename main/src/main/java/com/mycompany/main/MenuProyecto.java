@@ -1,17 +1,30 @@
+package com.mycompany.main;
+
 import java.util.Scanner;
+import <default package>.Inmobiliaria;
+import <default package>.Proyecto;
+import <default package>.NivelDemanda;
 
 public class MenuProyecto {
     private Inmobiliaria inmobiliaria;
     private Scanner scanner;
 
     public MenuProyecto(Inmobiliaria inmobiliaria){
-        this.inmobilaria = inmobilaria;
+        this.inmobiliaria = inmobiliaria;
         this.scanner = new Scanner(System.in);
     }
 
     public void mostrarMenu(){
         int opcion;
         do{
+            
+            System.out.println("1 - Agregar proyecto");
+            System.out.println("2 - Mostrar proyecto");
+            System.out.println("3 - Buscar proyecto");
+            System.out.println("4 - Modificar proyecto");
+            System.out.println("5 - Eliminar proyecto");
+            System.out.println("0 - Salir");
+
             opcion = scanner.nextInt();
             scanner.nextLine();
 
@@ -43,20 +56,21 @@ public class MenuProyecto {
         String codigo = scanner.nextLine();
         String nombre = scanner.nextLine();
         String ubicacion = scanner.nextLine();
-        NivelDemanda demanda = scanner.seleccionarDemanda();
+        NivelDemanda demanda = seleccionarDemanda();
         
         Proyecto proyecto = new Proyecto(codigo, nombre, ubicacion, demanda);
-        inmobilaria.agregarProyecto(proyecto);
+        inmobiliaria.agregarProyecto(proyecto);
     }
 
     private void mostrarProyecto(){
-        inmbilaria.mostrarProyecto();
+        String codigo = scanner.nextLine();
+        inmobiliaria.mostrarProyecto(codigo);
     }
 
     private void buscarProyecto(){
         String codigo = scanner.nextLine();
         
-        Proyecto proyecto = inmobilaria.buscarProyecto(codigo);
+        Proyecto proyecto = inmobiliaria.buscarProyecto(codigo);
 
         if(proyecto != null){
             System.out.println("se encontro");
@@ -67,9 +81,9 @@ public class MenuProyecto {
 
     }
 
-    public void modificarProyecto(){
+    private void modificarProyecto(){
         String codigo = scanner.nextLine();
-        Proyecto proyecto = inmobilaria.buscarProyecto(codigo);
+        Proyecto proyecto = inmobiliaria.buscarProyecto(codigo);
 
         if(proyecto == null){
             
@@ -80,17 +94,17 @@ public class MenuProyecto {
         String ubicacion = scanner.nextLine();
         NivelDemanda demanda = seleccionarDemanda();
 
-        inmobilaria.modificarProyecto(codigo, nombre, ubicacion, demanda);
+        inmobiliaria.modificarProyecto(codigo, nombre, ubicacion, demanda);
 
 
     }
 
     private void eliminarProyecto(){
         String codigo = scanner.nextLine();
-        Proyecto proyecto = inmobilaria.buscarInmobilaria(codigo);
+        Proyecto proyecto = inmobiliaria.buscarProyecto(codigo);
 
         if(proyecto != null){
-            inmobilaria.eliminarProyecto(codigo);
+            inmobiliaria.eliminarProyecto(codigo);
         }else{
             System.out.println("no se encontro");
         }
@@ -101,7 +115,7 @@ public class MenuProyecto {
         System.out.println("2) Media");
         System.out.println("3) Alta");
         
-        int opcion = scanner.nextLine();
+        int opcion = Integer.parseInt(scanner.nextLine());
         
         switch (opcion){
             case 1: 
