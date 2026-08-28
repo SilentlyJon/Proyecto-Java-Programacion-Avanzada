@@ -20,3 +20,4 @@ public class DepartamentoBasico extends Departamento{
        return super.mostrarInformacion() + " | Tipo: Basico";
     }
 }
+//ola
