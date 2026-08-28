@@ -1,3 +1,5 @@
+package <default package>;
+
 public class DepartamentoBasico extends Departamento{
     public DepartamentoBasico(String id, int numero, double metrosCuadrados, double precioBase, NivelDemanda demanda, EstadoDepartamento estado){
         super(id, numero, metrosCuadrados, precioBase, demanda, estado);
@@ -10,6 +12,6 @@ public class DepartamentoBasico extends Departamento{
     
     @Override
     public String mostrarInformacion(){
-       return super.mostarInformacion() + " | Tipo: Basico";
+       return super.mostrarInformacion() + " | Tipo: Basico";
     }
 }
