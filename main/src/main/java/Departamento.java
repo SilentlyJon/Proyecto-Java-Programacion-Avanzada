@@ -9,6 +9,7 @@
  * .h en C, con la diferencia de que aquí el compilador obliga a
  * implementarla).
  */
+package <default package>;
 
 public abstract class Departamento{
     private String id;
