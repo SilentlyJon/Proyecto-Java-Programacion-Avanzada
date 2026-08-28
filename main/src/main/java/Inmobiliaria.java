@@ -1,30 +1,32 @@
+package <default package>;
+
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class Inmobiliaria {
     private String nombre;
-    private String direccio;
-    private Map<String, Proyecto> proyecto;
+    private String direccion;
+    private Map<String, Proyecto> proyectos;
     private String contacto;
     
     public Inmobiliaria(String nombre, String direccion, String contacto){
         this.nombre = nombre;
         this.direccion = direccion;
         this.contacto = contacto;
-        this.proyecto = new HashMap<>();
+        this.proyectos = new HashMap<>();
     }
     
-    public void agregarProyecto(){
-        proyecto.put(proyecto.getCodigo(),proyecto);
+    public void agregarProyecto(Proyecto proyecto){
+        proyectos.put(proyecto.getCodigo(),proyecto);
     }
 
     public Proyecto buscarProyecto(String codigo){
-        return proyecto.get(codigo);
+        return proyectos.get(codigo);
     }
 
     public void modificarProyecto(String codigo, String nuevoNombre, String nuevaUbicacion, NivelDemanda nuevaDemanda){
-        Proyecto proyecto = proyecto.get(codigo);
+        Proyecto proyecto = proyectos.get(codigo);
         
         if(proyecto != null){
             proyecto.setNombre(nuevoNombre);
@@ -37,7 +39,8 @@ public class Inmobiliaria {
         proyectos.remove(codigo);
     }
 
-    public void mostrarProyecto(){
+    public void mostrarProyecto(String codigo){
+        Proyecto proyecto = proyectos.get(codigo);
         System.out.println(proyecto);
     }
    
@@ -69,7 +72,7 @@ public class Inmobiliaria {
         return proyectos;
     }
 
-    public void setProyectos(){
+    public void setProyectos(Map<String, Proyecto> proyectos){
         this.proyectos = proyectos;
     }
 }
