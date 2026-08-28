@@ -1,4 +1,7 @@
+package com.mycompany.main;
+
 import java.util.Scanner;
+import <default package>.Inmobilaria;
 
 public class MenuConsola {
     private Inmobiliaria inmobiliaria;
@@ -40,7 +43,7 @@ public class MenuConsola {
     }
 
     private void menuProyecto(){
-        MenuProyecto menuProyecto = new MenuProyecto(inmobilaria);
+        MenuProyecto menuProyecto = new MenuProyecto(inmobiliaria);
         menuProyecto.mostrarMenu();
     }
 }
