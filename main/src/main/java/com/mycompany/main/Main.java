@@ -1,11 +1,14 @@
+package com.mycompany.main;
+
 import java.util.Scanner;
+import <default package>.Inmobiliaria;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
 // EJEMPLO
-        Inmobilaria inmobilaria = new Inmobilaria("Inmobilaria Chile","Av. Principal","contaco@inmobilaria.cl");
+        Inmobiliaria inmobiliaria = new Inmobiliaria("Inmobiliaria Chile","Av. Principal","contaco@inmobilaria.cl");
 //
 
         
@@ -17,7 +20,7 @@ public class Main {
         
         switch (opcion){
             case 1:
-                MenuConsola menu = new MenuConsola(inmobilaria);
+                MenuConsola menu = new MenuConsola(inmobiliaria);
                 menu.mostrarMenu();
                 break;
             case 2:
@@ -28,10 +31,6 @@ public class Main {
                 System.out.println("Opción Inválida");
 
         }
-        
         scanner.close();
-        
-        System.out.println("Hello World!");
-        System.out.println("Prueba");
    }
 }
