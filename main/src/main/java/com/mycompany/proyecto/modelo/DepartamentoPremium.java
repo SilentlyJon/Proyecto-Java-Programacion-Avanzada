@@ -47,6 +47,13 @@ public class DepartamentoPremium extends Departamento{
     public String mostrarInformacion() {
         return super.mostrarInformacion(); 
     }
+
+    public void modificarDatosPremium(boolean tienePiscina,boolean garage, boolean tieneBidet) {
+        this.tienePiscina = tienePiscina;
+        this.garage = garage;
+        this.tieneBidet = tieneBidet;
+    }
+    
     
    
 }

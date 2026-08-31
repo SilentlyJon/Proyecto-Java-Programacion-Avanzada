@@ -12,9 +12,8 @@ public class Main {
 // EJEMPLO
         Inmobiliaria inmobiliaria = new Inmobiliaria("Inmobiliaria Chile","Av. Principal","contaco@inmobilaria.cl");
 //
-
         
-        System.out.println("Selecciona la forma de visualización");
+        System.out.println("Selecciona la forma de visualizacion: ");
         System.out.println("1) Consola");
         System.out.println("2) Ventana");
 
@@ -30,7 +29,7 @@ public class Main {
                 
                 break;
             default:
-                System.out.println("Opción Inválida");
+                System.out.println("Opcion Invalida,");
 
         }
         scanner.close();

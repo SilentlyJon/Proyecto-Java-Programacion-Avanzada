@@ -36,11 +36,7 @@ public class Proyecto {
     public void modificarDepartamento(String id, int nuevoNumero, double nuevoMetrosCuadrados, double nuevoPrecioBase, NivelDemanda nuevaDemanda, EstadoDepartamento nuevoEstado){
         Departamento departamento = buscarDepartamento(id);
         if(departamento != null){
-            departamento.setNumero(nuevoNumero);
-            departamento.setMetrosCuadrados(nuevoMetrosCuadrados);
-            departamento.setPrecioBase(nuevoPrecioBase);
-            departamento.setDemanda(nuevaDemanda);
-            departamento.setEstado(nuevoEstado);
+            departamento.modificarDatos(nuevoNumero, nuevoMetrosCuadrados, nuevoPrecioBase, nuevaDemanda, nuevoEstado);
         }
     }
     
