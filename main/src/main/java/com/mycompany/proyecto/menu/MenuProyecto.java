@@ -53,64 +53,86 @@ public class MenuProyecto {
     }
 
     private void agregarProyecto(){
+        System.out.println("Ingrese el codigo del Proyecto: ");
         String codigo = scanner.nextLine();
+        
+        System.out.println("Ingrese el nombre del Proyecto: ");
         String nombre = scanner.nextLine();
+        
+        System.out.println("Ingrese la ubicacion del Proyecto: ");
         String ubicacion = scanner.nextLine();
+        
+        System.out.println("Ingrese la demanda del Proyecto: ");
         NivelDemanda demanda = seleccionarDemanda();
         
         Proyecto proyecto = new Proyecto(codigo, nombre, ubicacion, demanda);
         inmobiliaria.agregarProyecto(proyecto);
+        System.out.println("Se agrego el nuevo proyecto.");
     }
 
     private void mostrarProyecto(){
+        System.out.println("Ingrese el codigo del Proyecto: ");
         String codigo = scanner.nextLine();
+        
         inmobiliaria.mostrarProyecto(codigo);
     }
 
     private void buscarProyecto(){
+        System.out.println("Ingrese el codigo del proyecto: ");
         String codigo = scanner.nextLine();
         
         Proyecto proyecto = inmobiliaria.buscarProyecto(codigo);
 
         if(proyecto != null){
-            System.out.println("se encontro");
+            System.out.println("Se encontro el proyecto.");
             System.out.println(proyecto);
         }else{
-            System.out.println("no se encontro");
+            System.out.println("No se encontro el proyecto.");
         }
 
     }
 
     private void modificarProyecto(){
+        System.out.println("Ingrese el codigo del Proyecto: ");
         String codigo = scanner.nextLine();
         Proyecto proyecto = inmobiliaria.buscarProyecto(codigo);
 
         if(proyecto == null){
-            
+          System.out.println("No se encontro el proyecto.");  
             return;
         }
-
+        
+        System.out.println("Ingrese el nombre del Proyecto: ");
         String nombre = scanner.nextLine();
+        
+        System.out.println("Ingrese la ubicacion del Proyecto: ");
         String ubicacion = scanner.nextLine();
+        
+        System.out.println("Ingrese la demanda del Proyecto: ");
         NivelDemanda demanda = seleccionarDemanda();
 
         inmobiliaria.modificarProyecto(codigo, nombre, ubicacion, demanda);
-
+        System.out.println("Se modifico el proyecto.");
 
     }
 
     private void eliminarProyecto(){
+        System.out.println("Ingrese el codigo del Proyecto: ");
         String codigo = scanner.nextLine();
+        
         Proyecto proyecto = inmobiliaria.buscarProyecto(codigo);
-
+   
         if(proyecto != null){
+            System.out.println("Se encontro el proyecto");
             inmobiliaria.eliminarProyecto(codigo);
+            System.out.println("Se elimino el proyecto.");
         }else{
-            System.out.println("no se encontro");
+            System.out.println("No se encontro el proyecto.");
         }
     }
 
     private NivelDemanda seleccionarDemanda(){
+        System.out.println("Seleccione un tipo de Demanda");
         System.out.println("1) Baja");
         System.out.println("2) Media");
         System.out.println("3) Alta");
