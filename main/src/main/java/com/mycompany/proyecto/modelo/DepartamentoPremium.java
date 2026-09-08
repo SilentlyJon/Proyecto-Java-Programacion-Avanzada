@@ -40,7 +40,14 @@ public class DepartamentoPremium extends Departamento{
 
     @Override
     public double calcularPrecioFinal() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        if(getDemanda() == NivelDemanda.BAJA){
+            return getPrecioBase() * 1.10;
+        }else if(getDemanda() == NivelDemanda.MEDIA){
+            return getPrecioBase() * 1.20;
+        }else if(getDemanda() == NivelDemanda.ALTA){
+            return getPrecioBase() * 1.30;
+        }
+        return getPrecioBase();
     }
 
     @Override
