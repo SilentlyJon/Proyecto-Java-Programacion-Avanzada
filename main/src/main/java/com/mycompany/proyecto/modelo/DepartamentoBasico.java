@@ -11,8 +11,15 @@ public class DepartamentoBasico extends Departamento{
     }
     
     @Override
-    public double calcularPrecioFinal(){
-        return getPrecioBase(); 
+    public double calcularPrecioFinal() {
+        if(getDemanda() == NivelDemanda.BAJA){
+            return getPrecioBase() * 1.05;
+        }else if(getDemanda() == NivelDemanda.MEDIA){
+            return getPrecioBase() * 1.10;
+        }else if(getDemanda() == NivelDemanda.ALTA){
+            return getPrecioBase() * 1.20;
+        }
+        return getPrecioBase();
     }
     
     @Override
