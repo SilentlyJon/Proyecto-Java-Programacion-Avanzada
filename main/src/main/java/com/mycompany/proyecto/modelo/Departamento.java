@@ -44,6 +44,16 @@ public abstract class Departamento{
     public String mostrarInformacion(){
         return String.format("ID: %s | Nro: %d | %.1f m2 | Precio base: $%.0f | Demanda: %s | Estado: %s", id, numero, metrosCuadrados, precioBase, demanda, estado);
     }
+    
+    public void  modificarDatos(int numero, double metrosCuadrados, double precioBase, NivelDemanda demanda, EstadoDepartamento estado){
+        this.numero = numero;
+        this.metrosCuadrados = metrosCuadrados;
+        this.precioBase = precioBase;
+        this.demanda = demanda;
+        this.estado = estado;
+        
+    }
+    
 
     // Getters y Setters
     public String getId(){
