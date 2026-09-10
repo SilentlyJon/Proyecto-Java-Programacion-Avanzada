@@ -1,0 +1,6 @@
+P005;Condominio Santa Maria;Providencia;MEDIA
+P004;Edificio Vista Norte;Huechuraba;ALTA
+P006;Casas Valle Verde;Puente Alto;MEDIA
+P001;Edificio Los Robles;Santiago;ALTA
+P003;Residencial El Bosque;La Florida;BAJA
+P002;Condominio Las Palmas;Maipu;MEDIA
