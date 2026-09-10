@@ -85,6 +85,10 @@ public class Proyecto {
         this.demanda = demanda;
     }
     
+    public ArrayList<Departamento> getDepartamentos(){
+        return departamentos;
+    }
+    
     public String toString(){
         return "Codigo: " + codigo
                 + "| Nombre: " + nombre
