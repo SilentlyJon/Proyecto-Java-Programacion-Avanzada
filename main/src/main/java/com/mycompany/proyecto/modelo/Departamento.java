@@ -61,6 +61,12 @@ public abstract class Departamento{
         this.estado = estado;
         
     }
+
+    // Sobrecarga: cambio rapido, solo actualiza el estado (ej: marcar como VENDIDO)
+    // sin tener que reingresar numero, metros, precio y demanda.
+    public void modificarDatos(EstadoDepartamento estado){
+        this.estado = estado;
+    }
     
 
     // Getters y Setters

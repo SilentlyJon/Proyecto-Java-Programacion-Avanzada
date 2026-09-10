@@ -11,6 +11,8 @@ import com.mycompany.proyecto.modelo.Inmobiliaria;
 import com.mycompany.proyecto.modelo.NivelDemanda;
 import com.mycompany.proyecto.modelo.EstadoDepartamento;
 import com.mycompany.proyecto.modelo.Proyecto;
+import com.mycompany.proyecto.excepciones.ProyectoDuplicadoException;
+import com.mycompany.proyecto.excepciones.DatosInvalidosException;
 
 public class LectorDeDatos {
     public static void cargarProyectos(String archivo, Inmobiliaria inmobilaria){
@@ -29,7 +31,11 @@ public class LectorDeDatos {
                 
                 
                 Proyecto proyecto = new Proyecto(codigo, nombre, direccion, demanda);
-                inmobilaria.agregarProyecto(proyecto);
+                try{
+                    inmobilaria.agregarProyecto(proyecto);
+                }catch(ProyectoDuplicadoException e){
+                    System.out.println("Aviso al cargar proyectos: " + e.getMessage());
+                }
             }
             br.close();
         }catch (IOException e){
@@ -58,16 +64,25 @@ public class LectorDeDatos {
                
                 Proyecto proyecto = inmobiliaria.buscarProyecto(codigoProyecto);
                 
-                if(tipo.equals("BASICO")){
-                    DepartamentoBasico departamento = new DepartamentoBasico(id, numero, metrosCuadrados, precioBase, demanda, estado);
-                    proyecto.agregarDepartamento(departamento);                
-                }else if(tipo.equals("PREMIUM")){
-                    Boolean tienePiscina = Boolean.valueOf(datos[8]);
-                    Boolean garage = Boolean.valueOf(datos[9]);
-                    Boolean tieneBidet = Boolean.valueOf(datos[10]);
-                    
-                    DepartamentoPremium departamento = new DepartamentoPremium(tienePiscina, garage, tieneBidet, id, numero, metrosCuadrados, precioBase, demanda, estado);
-                    proyecto.agregarDepartamento(departamento); 
+                if(proyecto == null){
+                    System.out.println("Aviso al cargar departamentos: no existe el proyecto " + codigoProyecto);
+                    continue;
+                }
+                
+                try{
+                    if(tipo.equals("BASICO")){
+                        DepartamentoBasico departamento = new DepartamentoBasico(id, numero, metrosCuadrados, precioBase, demanda, estado);
+                        proyecto.agregarDepartamento(departamento);                
+                    }else if(tipo.equals("PREMIUM")){
+                        Boolean tienePiscina = Boolean.valueOf(datos[8]);
+                        Boolean garage = Boolean.valueOf(datos[9]);
+                        Boolean tieneBidet = Boolean.valueOf(datos[10]);
+
+                        DepartamentoPremium departamento = new DepartamentoPremium(tienePiscina, garage, tieneBidet, id, numero, metrosCuadrados, precioBase, demanda, estado);
+                        proyecto.agregarDepartamento(departamento); 
+                    }
+                }catch(DatosInvalidosException e){
+                    System.out.println("Aviso al cargar departamentos: " + e.getMessage());
                 }
             }
             br.close();

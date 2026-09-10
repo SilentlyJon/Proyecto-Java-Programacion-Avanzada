@@ -46,6 +46,24 @@ public class Proyecto {
             System.out.println(departamento.mostrarInformacion());
         }
     }
+
+    // Sobrecarga: muestra solo los departamentos que tengan el estado indicado
+    public void mostrarDepartamento(EstadoDepartamento estado){
+        for(Departamento departamento : departamentos){
+            if(departamento.getEstado() == estado){
+                System.out.println(departamento.mostrarInformacion());
+            }
+        }
+    }
+
+    // Sobrecarga: muestra solo los departamentos que tengan el nivel de demanda indicado
+    public void mostrarDepartamento(NivelDemanda demanda){
+        for(Departamento departamento : departamentos){
+            if(departamento.getDemanda() == demanda){
+                System.out.println(departamento.mostrarInformacion());
+            }
+        }
+    }
     
     public Departamento buscarDepartamento(String id){
         for(Departamento departamento : departamentos){

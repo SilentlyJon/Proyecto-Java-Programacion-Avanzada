@@ -28,6 +28,7 @@ public class MenuDepartamento {
             System.out.println("3 - Buscar departamento");
             System.out.println("4 - Modificar departamento");
             System.out.println("5 - Eliminar departamento");
+            System.out.println("6 - Cambiar estado de un departamento");
             System.out.println("0 - Volver");
             System.out.println("Seleccione una opcion: ");
             
@@ -49,6 +50,9 @@ public class MenuDepartamento {
                     break;
                 case 5:
                     eliminarDepartamento();
+                    break;
+                case 6:
+                    cambiarEstadoDepartamento();
                     break;
                 case 0:
                     break;
@@ -133,10 +137,32 @@ public class MenuDepartamento {
         
         Proyecto proyecto = inmobiliaria.buscarProyecto(codigoProyecto);
         
-        if(proyecto != null){
-            proyecto.mostrarDepartamento();
-        }else{
+        if(proyecto == null){
             System.out.println("No se encontro el proyecto.");
+            return;
+        }
+
+        System.out.println("Como desea verlos: ");
+        System.out.println("1 - Todos");
+        System.out.println("2 - Filtrar por estado");
+        System.out.println("3 - Filtrar por demanda");
+        int opcion = scanner.nextInt();
+        scanner.nextLine();
+
+        switch(opcion){
+            case 1:
+                proyecto.mostrarDepartamento();
+                break;
+            case 2:
+                EstadoDepartamento estado = seleccionarEstado();
+                proyecto.mostrarDepartamento(estado);
+                break;
+            case 3:
+                NivelDemanda demanda = seleccionarDemanda();
+                proyecto.mostrarDepartamento(demanda);
+                break;
+            default:
+                System.out.println("Opcion invalida.");
         }
     }
 
@@ -234,6 +260,36 @@ public class MenuDepartamento {
         
         EscritorDeDatos.guardarDepartamento("departamentos.txt", inmobiliaria);
         System.out.println("Se modificaron los datos del departamento de forma exitosa y se guardaron los cambios.");
+    }
+
+    private void cambiarEstadoDepartamento() {
+        System.out.println("Ingrese codigo del proyecto: ");
+        String codigoProyecto = scanner.nextLine();
+
+        Proyecto proyecto = inmobiliaria.buscarProyecto(codigoProyecto);
+
+        if(proyecto == null){
+            System.out.println("No se encontro el proyecto.");
+            return;
+        }
+
+        System.out.println("Ingrese el ID del departamento: ");
+        String id = scanner.nextLine();
+
+        Departamento departamento = proyecto.buscarDepartamento(id);
+
+        if(departamento == null){
+            System.out.println("No se encontro el departamento.");
+            return;
+        }
+
+        EstadoDepartamento nuevoEstado = seleccionarEstado();
+
+        // Sobrecarga de modificarDatos(): solo cambia el estado, sin tocar el resto de los datos.
+        departamento.modificarDatos(nuevoEstado);
+
+        EscritorDeDatos.guardarDepartamento("departamentos.txt", inmobiliaria);
+        System.out.println("Se actualizo el estado del departamento y se guardaron los cambios.");
     }
 
     private void eliminarDepartamento() {
