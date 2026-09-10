@@ -1,6 +1,7 @@
 package com.mycompany.proyecto.menu;
 
 import java.util.Scanner;
+import com.mycompany.main.Persistencia.EscritorDeDatos;
 import com.mycompany.proyecto.modelo.Inmobiliaria;
 import com.mycompany.proyecto.modelo.Proyecto;
 import com.mycompany.proyecto.modelo.Departamento;
@@ -116,7 +117,9 @@ public class MenuDepartamento {
                 return;
         }
         proyecto.agregarDepartamento(departamento);
-        System.out.println("El departamento se agrego de forma exitosa.");
+        
+        EscritorDeDatos.guardarDepartamento("departamentos.txt", inmobiliaria);
+        System.out.println("El departamento se agrego de forma exitosa y se guardaron los cambios.");
     }
 
     private void mostrarDepartamento() {
@@ -218,7 +221,9 @@ public class MenuDepartamento {
                 System.out.println("Respuesta invalida.");
                 return;
         }
-        System.out.println("Se modificaron los datos del departamento de forma exitosa");
+        
+        EscritorDeDatos.guardarDepartamento("departamentos.txt", inmobiliaria);
+        System.out.println("Se modificaron los datos del departamento de forma exitosa y se guardaron los cambios.");
     }
 
     private void eliminarDepartamento() {
@@ -240,7 +245,9 @@ public class MenuDepartamento {
         
         if(departamento != null){
             proyecto.eliminarDepartamento(id);
-            System.out.println("Se elimino el departamento.");
+            
+            EscritorDeDatos.guardarDepartamento("departamentos.txt", inmobiliaria);
+            System.out.println("Se elimino el departamento y guardaron los cambios.");
         }else{
             System.out.println("No se encontro el departamento.");
         }
