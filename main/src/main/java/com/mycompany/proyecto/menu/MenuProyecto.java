@@ -1,5 +1,6 @@
 package com.mycompany.proyecto.menu;
 
+import com.mycompany.main.Persistencia.EscritorDeDatos;
 import com.mycompany.proyecto.modelo.Proyecto;
 import com.mycompany.proyecto.modelo.NivelDemanda;
 import com.mycompany.proyecto.modelo.Inmobiliaria;
@@ -67,7 +68,9 @@ public class MenuProyecto {
         
         Proyecto proyecto = new Proyecto(codigo, nombre, ubicacion, demanda);
         inmobiliaria.agregarProyecto(proyecto);
-        System.out.println("Se agrego el nuevo proyecto.");
+        
+        EscritorDeDatos.guardarProyectos("proyectos.txt", inmobiliaria);
+        System.out.println("Se agrego el nuevo proyecto y se guardaron los cambios.");
     }
 
     private void mostrarProyecto(){
@@ -112,7 +115,9 @@ public class MenuProyecto {
         NivelDemanda demanda = seleccionarDemanda();
 
         inmobiliaria.modificarProyecto(codigo, nombre, ubicacion, demanda);
-        System.out.println("Se modifico el proyecto.");
+        
+        EscritorDeDatos.guardarProyectos("proyectos.txt", inmobiliaria);
+        System.out.println("Se modifico el proyecto y se guardaron los cambios.");
 
     }
 
@@ -125,7 +130,9 @@ public class MenuProyecto {
         if(proyecto != null){
             System.out.println("Se encontro el proyecto");
             inmobiliaria.eliminarProyecto(codigo);
-            System.out.println("Se elimino el proyecto.");
+            
+            EscritorDeDatos.guardarProyectos("proyectos.txt", inmobiliaria);
+            System.out.println("Se elimino el proyecto y se guardaron los cambios.");
         }else{
             System.out.println("No se encontro el proyecto.");
         }
