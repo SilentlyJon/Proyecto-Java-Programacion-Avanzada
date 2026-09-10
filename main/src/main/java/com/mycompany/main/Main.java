@@ -32,7 +32,10 @@ public class Main {
                 break;
             case 2:
                 System.out.println("Abriendo Ventana.....");
-                
+                javax.swing.SwingUtilities.invokeLater(() -> {
+                    com.mycompany.proyecto.ventana.MenuVentana ventana = new com.mycompany.proyecto.ventana.MenuVentana(inmobiliaria);
+                ventana.setVisible(true);
+            });
                 break;
             default:
                 System.out.println("Opcion Invalida,");
