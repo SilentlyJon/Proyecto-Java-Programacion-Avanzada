@@ -1,5 +1,6 @@
-
 package com.mycompany.proyecto.modelo;
+
+import com.mycompany.proyecto.excepciones.DatosInvalidosException;
 
 public class DepartamentoPremium extends Departamento{
     
@@ -7,7 +8,7 @@ public class DepartamentoPremium extends Departamento{
     private boolean garage;
     private boolean tieneBidet;
 
-    public DepartamentoPremium(boolean tienePiscina, boolean garage, boolean tieneBidet, String id, int numero, double metrosCuadrados, double precioBase, NivelDemanda demanda, EstadoDepartamento estado) {
+    public DepartamentoPremium(boolean tienePiscina, boolean garage, boolean tieneBidet, String id, int numero, double metrosCuadrados, double precioBase, NivelDemanda demanda, EstadoDepartamento estado) throws DatosInvalidosException {
         super(id, numero, metrosCuadrados, precioBase, demanda, estado);
         this.tienePiscina = tienePiscina;
         this.garage = garage;
@@ -64,4 +65,3 @@ public class DepartamentoPremium extends Departamento{
     
    
 }
-

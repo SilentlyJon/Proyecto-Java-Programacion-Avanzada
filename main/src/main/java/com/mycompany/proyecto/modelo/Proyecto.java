@@ -5,6 +5,7 @@ package com.mycompany.proyecto.modelo;
 import com.mycompany.proyecto.modelo.NivelDemanda;
 import com.mycompany.proyecto.modelo.EstadoDepartamento;
 import com.mycompany.proyecto.modelo.Departamento;
+import com.mycompany.proyecto.excepciones.DatosInvalidosException;
 import java.util.ArrayList;
 
 public class Proyecto {
@@ -33,7 +34,7 @@ public class Proyecto {
         }
     }
 
-    public void modificarDepartamento(String id, int nuevoNumero, double nuevoMetrosCuadrados, double nuevoPrecioBase, NivelDemanda nuevaDemanda, EstadoDepartamento nuevoEstado){
+    public void modificarDepartamento(String id, int nuevoNumero, double nuevoMetrosCuadrados, double nuevoPrecioBase, NivelDemanda nuevaDemanda, EstadoDepartamento nuevoEstado) throws DatosInvalidosException{
         Departamento departamento = buscarDepartamento(id);
         if(departamento != null){
             departamento.modificarDatos(nuevoNumero, nuevoMetrosCuadrados, nuevoPrecioBase, nuevaDemanda, nuevoEstado);

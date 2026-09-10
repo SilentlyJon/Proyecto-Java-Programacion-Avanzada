@@ -9,6 +9,7 @@ import com.mycompany.proyecto.modelo.DepartamentoBasico;
 import com.mycompany.proyecto.modelo.DepartamentoPremium;
 import com.mycompany.proyecto.modelo.NivelDemanda;
 import com.mycompany.proyecto.modelo.EstadoDepartamento;
+import com.mycompany.proyecto.excepciones.DatosInvalidosException;
 
 public class MenuDepartamento {
     private Inmobiliaria inmobiliaria;
@@ -94,32 +95,36 @@ public class MenuDepartamento {
         int tipo = scanner.nextInt();
         scanner.nextLine();
         
-        Departamento departamento;
-        
-        switch (tipo) {
-            case 1:
-                departamento = new DepartamentoBasico(id, numero, metrosCuadrados, precioBase, demanda, estado);
-                break;
-            case 2:
-                System.out.println("Ingrese si tiene Pisina: ");
-                boolean tienePisina = scanner.nextBoolean();
-        
-                System.out.println("Ingrese si tiene garage: ");
-                boolean garage = scanner.nextBoolean();
-        
-                System.out.println("Ingrese si tiene bidet: ");
-                boolean tieneBidet = scanner.nextBoolean();
-                
-                departamento = new DepartamentoPremium(tienePisina, garage, tieneBidet, id, numero, metrosCuadrados, precioBase, demanda, estado);
-                break;
-            default:
-                System.out.println("Tipo de departamento invalido.");
-                return;
+        try{
+            Departamento departamento;
+
+            switch (tipo) {
+                case 1:
+                    departamento = new DepartamentoBasico(id, numero, metrosCuadrados, precioBase, demanda, estado);
+                    break;
+                case 2:
+                    System.out.println("Ingrese si tiene Pisina: ");
+                    boolean tienePisina = scanner.nextBoolean();
+
+                    System.out.println("Ingrese si tiene garage: ");
+                    boolean garage = scanner.nextBoolean();
+
+                    System.out.println("Ingrese si tiene bidet: ");
+                    boolean tieneBidet = scanner.nextBoolean();
+
+                    departamento = new DepartamentoPremium(tienePisina, garage, tieneBidet, id, numero, metrosCuadrados, precioBase, demanda, estado);
+                    break;
+                default:
+                    System.out.println("Tipo de departamento invalido.");
+                    return;
+            }
+            proyecto.agregarDepartamento(departamento);
+
+            EscritorDeDatos.guardarDepartamento("departamentos.txt", inmobiliaria);
+            System.out.println("El departamento se agrego de forma exitosa y se guardaron los cambios.");
+        }catch(DatosInvalidosException e){
+            System.out.println("Error: " + e.getMessage());
         }
-        proyecto.agregarDepartamento(departamento);
-        
-        EscritorDeDatos.guardarDepartamento("departamentos.txt", inmobiliaria);
-        System.out.println("El departamento se agrego de forma exitosa y se guardaron los cambios.");
     }
 
     private void mostrarDepartamento() {
@@ -192,7 +197,12 @@ public class MenuDepartamento {
         
         EstadoDepartamento estado = seleccionarEstado();
         
-        proyecto.modificarDepartamento(id, numero, metrosCuadrados, precioBase, demanda, estado);
+        try{
+            proyecto.modificarDepartamento(id, numero, metrosCuadrados, precioBase, demanda, estado);
+        }catch(DatosInvalidosException e){
+            System.out.println("Error: " + e.getMessage());
+            return;
+        }
         
         System.out.println("¿El Departamento es Primium?: ");
         System.out.println("1 - Si");

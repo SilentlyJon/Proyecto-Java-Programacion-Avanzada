@@ -2,6 +2,7 @@ package com.mycompany.proyecto.ventana;
 
 import com.mycompany.proyecto.modelo.Inmobiliaria;
 import com.mycompany.proyecto.modelo.Proyecto;
+import com.mycompany.proyecto.excepciones.ProyectoDuplicadoException;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -84,15 +85,15 @@ public class PanelProyecto extends JPanel {
         dialogo.setVisible(true);
 
         if (dialogo.isConfirmado()) {
-            if (inmobiliaria.buscarProyecto(dialogo.getCodigo()) != null) {
-                JOptionPane.showMessageDialog(this, "Ya existe un proyecto con ese código.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
             Proyecto proyecto = new Proyecto(dialogo.getCodigo(), dialogo.getNombreProyecto(),
                     dialogo.getUbicacion(), dialogo.getDemandaSeleccionada());
-            inmobiliaria.agregarProyecto(proyecto);
-            cargarTabla();
-            notificarCambio();
+            try {
+                inmobiliaria.agregarProyecto(proyecto);
+                cargarTabla();
+                notificarCambio();
+            } catch (ProyectoDuplicadoException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 

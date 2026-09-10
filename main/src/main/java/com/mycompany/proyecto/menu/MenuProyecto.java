@@ -4,6 +4,7 @@ import com.mycompany.main.Persistencia.EscritorDeDatos;
 import com.mycompany.proyecto.modelo.Proyecto;
 import com.mycompany.proyecto.modelo.NivelDemanda;
 import com.mycompany.proyecto.modelo.Inmobiliaria;
+import com.mycompany.proyecto.excepciones.ProyectoDuplicadoException;
 import java.util.Scanner;
 
 public class MenuProyecto {
@@ -67,10 +68,14 @@ public class MenuProyecto {
         NivelDemanda demanda = seleccionarDemanda();
         
         Proyecto proyecto = new Proyecto(codigo, nombre, ubicacion, demanda);
-        inmobiliaria.agregarProyecto(proyecto);
-        
-        EscritorDeDatos.guardarProyectos("proyectos.txt", inmobiliaria);
-        System.out.println("Se agrego el nuevo proyecto y se guardaron los cambios.");
+
+        try{
+            inmobiliaria.agregarProyecto(proyecto);
+            EscritorDeDatos.guardarProyectos("proyectos.txt", inmobiliaria);
+            System.out.println("Se agrego el nuevo proyecto y se guardaron los cambios.");
+        }catch(ProyectoDuplicadoException e){
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     private void mostrarProyecto(){

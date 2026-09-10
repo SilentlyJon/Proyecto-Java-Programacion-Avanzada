@@ -5,6 +5,7 @@ import com.mycompany.proyecto.modelo.DepartamentoBasico;
 import com.mycompany.proyecto.modelo.DepartamentoPremium;
 import com.mycompany.proyecto.modelo.EstadoDepartamento;
 import com.mycompany.proyecto.modelo.NivelDemanda;
+import com.mycompany.proyecto.excepciones.DatosInvalidosException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -179,7 +180,7 @@ public class DialogoDepartamento extends JDialog {
     }
 
     /** Solo se usa al AGREGAR: construye el objeto según el tipo elegido (Básico/Premium). */
-    public Departamento construirDepartamento() {
+    public Departamento construirDepartamento() throws DatosInvalidosException {
         if (radioPremium.isSelected()) {
             return new DepartamentoPremium(isTienePiscina(), isTieneGarage(), isTieneBidet(),
                     getId(), getNumero(), getMetrosCuadrados(), getPrecioBase(),

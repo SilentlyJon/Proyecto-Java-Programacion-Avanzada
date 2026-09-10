@@ -1,7 +1,8 @@
-
 package com.mycompany.proyecto.modelo;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.mycompany.proyecto.excepciones.ProyectoDuplicadoException;
 
 
 public class Inmobiliaria {
@@ -17,7 +18,10 @@ public class Inmobiliaria {
         this.proyectos = new HashMap<>();
     }
     
-    public void agregarProyecto(Proyecto proyecto){
+    public void agregarProyecto(Proyecto proyecto) throws ProyectoDuplicadoException{
+        if(proyectos.containsKey(proyecto.getCodigo())){
+            throw new ProyectoDuplicadoException("Ya existe un proyecto con el codigo: " + proyecto.getCodigo());
+        }
         proyectos.put(proyecto.getCodigo(),proyecto);
     }
 

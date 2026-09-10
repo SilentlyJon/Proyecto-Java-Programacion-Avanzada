@@ -2,11 +2,12 @@ package com.mycompany.proyecto.modelo;
 
 
 import com.mycompany.proyecto.modelo.Departamento;
+import com.mycompany.proyecto.excepciones.DatosInvalidosException;
 
 
 
 public class DepartamentoBasico extends Departamento{
-    public DepartamentoBasico(String id, int numero, double metrosCuadrados, double precioBase, NivelDemanda demanda, EstadoDepartamento estado){
+    public DepartamentoBasico(String id, int numero, double metrosCuadrados, double precioBase, NivelDemanda demanda, EstadoDepartamento estado) throws DatosInvalidosException{
         super(id, numero, metrosCuadrados, precioBase, demanda, estado);
     }
     

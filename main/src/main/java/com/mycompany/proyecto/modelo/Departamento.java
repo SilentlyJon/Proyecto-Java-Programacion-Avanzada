@@ -1,5 +1,7 @@
 package com.mycompany.proyecto.modelo;
 
+import com.mycompany.proyecto.excepciones.DatosInvalidosException;
+
 /*
  * Clase abstracta que es basicamten un departamento dentro de un proyecto
  * inmobiliario
@@ -20,7 +22,10 @@ public abstract class Departamento{
     private NivelDemanda demanda;
     private EstadoDepartamento estado;
 
-    public Departamento(String id, int numero, double metrosCuadrados, double precioBase, NivelDemanda demanda, EstadoDepartamento estado) {
+    public Departamento(String id, int numero, double metrosCuadrados, double precioBase, NivelDemanda demanda, EstadoDepartamento estado) throws DatosInvalidosException {
+        if(metrosCuadrados <= 0 || precioBase <= 0){
+            throw new DatosInvalidosException("Los metros cuadrados y el precio base deben ser mayores a cero.");
+        }
         this.id = id;
         this.numero = numero;
         this.metrosCuadrados = metrosCuadrados;
@@ -45,7 +50,10 @@ public abstract class Departamento{
         return String.format("ID: %s | Nro: %d | %.1f m2 | Precio base: $%.0f | Demanda: %s | Estado: %s", id, numero, metrosCuadrados, precioBase, demanda, estado);
     }
     
-    public void  modificarDatos(int numero, double metrosCuadrados, double precioBase, NivelDemanda demanda, EstadoDepartamento estado){
+    public void  modificarDatos(int numero, double metrosCuadrados, double precioBase, NivelDemanda demanda, EstadoDepartamento estado) throws DatosInvalidosException{
+        if(metrosCuadrados <= 0 || precioBase <= 0){
+            throw new DatosInvalidosException("Los metros cuadrados y el precio base deben ser mayores a cero.");
+        }
         this.numero = numero;
         this.metrosCuadrados = metrosCuadrados;
         this.precioBase = precioBase;

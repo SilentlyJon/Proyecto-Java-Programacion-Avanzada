@@ -4,10 +4,13 @@ import com.mycompany.proyecto.modelo.Departamento;
 import com.mycompany.proyecto.modelo.DepartamentoPremium;
 import com.mycompany.proyecto.modelo.Inmobiliaria;
 import com.mycompany.proyecto.modelo.Proyecto;
+import com.mycompany.proyecto.excepciones.DatosInvalidosException;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  * Panel equivalente a MenuDepartamento. Primero se elige el proyecto
@@ -19,6 +22,7 @@ public class PanelDepartamento extends JPanel {
     private final JComboBox<String> comboProyectos = new JComboBox<>();
     private final DefaultTableModel modeloTabla;
     private final JTable tabla;
+    private final NumberFormat formatoPrecio = NumberFormat.getNumberInstance(new Locale("es", "CL"));
 
     public PanelDepartamento(Inmobiliaria inmobiliaria) {
         this.inmobiliaria = inmobiliaria;
@@ -87,8 +91,10 @@ public class PanelDepartamento extends JPanel {
         for (Departamento d : proyecto.getDepartamentos()) {
             String tipo = (d instanceof DepartamentoPremium) ? "Premium" : "Básico";
             modeloTabla.addRow(new Object[]{
-                    d.getId(), d.getNumero(), d.getMetrosCuadrados(), d.getPrecioBase(),
-                    d.getDemanda(), d.getEstado(), tipo, d.calcularPrecioFinal()
+                    d.getId(), d.getNumero(), d.getMetrosCuadrados(),
+                    "$" + formatoPrecio.format(Math.round(d.getPrecioBase())),
+                    d.getDemanda(), d.getEstado(), tipo,
+                    "$" + formatoPrecio.format(Math.round(d.calcularPrecioFinal()))
             });
         }
     }
@@ -116,9 +122,13 @@ public class PanelDepartamento extends JPanel {
                 JOptionPane.showMessageDialog(this, "Ya existe un departamento con ese ID en este proyecto.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            Departamento nuevo = dialogo.construirDepartamento();
-            proyecto.agregarDepartamento(nuevo);
-            cargarTabla();
+            try {
+                Departamento nuevo = dialogo.construirDepartamento();
+                proyecto.agregarDepartamento(nuevo);
+                cargarTabla();
+            } catch (DatosInvalidosException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos inválidos", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -133,14 +143,18 @@ public class PanelDepartamento extends JPanel {
         dialogo.setVisible(true);
 
         if (dialogo.isConfirmado()) {
-            proyecto.modificarDepartamento(id, dialogo.getNumero(), dialogo.getMetrosCuadrados(),
-                    dialogo.getPrecioBase(), dialogo.getDemandaSeleccionada(), dialogo.getEstadoSeleccionado());
+            try {
+                proyecto.modificarDepartamento(id, dialogo.getNumero(), dialogo.getMetrosCuadrados(),
+                        dialogo.getPrecioBase(), dialogo.getDemandaSeleccionada(), dialogo.getEstadoSeleccionado());
 
-            if (existente instanceof DepartamentoPremium) {
-                DepartamentoPremium premium = (DepartamentoPremium) existente;
-                premium.modificarDatosPremium(dialogo.isTienePiscina(), dialogo.isTieneGarage(), dialogo.isTieneBidet());
+                if (existente instanceof DepartamentoPremium) {
+                    DepartamentoPremium premium = (DepartamentoPremium) existente;
+                    premium.modificarDatosPremium(dialogo.isTienePiscina(), dialogo.isTieneGarage(), dialogo.isTieneBidet());
+                }
+                cargarTabla();
+            } catch (DatosInvalidosException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Datos inválidos", JOptionPane.ERROR_MESSAGE);
             }
-            cargarTabla();
         }
     }
 
