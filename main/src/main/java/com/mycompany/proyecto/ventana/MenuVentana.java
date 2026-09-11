@@ -19,6 +19,7 @@ public class MenuVentana extends JFrame {
 
         PanelProyecto panelProyecto = new PanelProyecto(inmobiliaria);
         PanelDepartamento panelDepartamento = new PanelDepartamento(inmobiliaria);
+        PanelRecomendador panelRecomendador = new PanelRecomendador(inmobiliaria);
 
         // Cuando se agrega/elimina un proyecto, el combo de la pestaña
         // de Departamentos se refresca automáticamente.
@@ -26,6 +27,7 @@ public class MenuVentana extends JFrame {
 
         pestanas.addTab("Proyectos", panelProyecto);
         pestanas.addTab("Departamentos", panelDepartamento);
+        pestanas.addTab("Recomendador", panelRecomendador);
 
         add(pestanas);
     }

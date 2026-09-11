@@ -2,7 +2,9 @@ package com.mycompany.proyecto.ventana;
 
 import com.mycompany.proyecto.modelo.Departamento;
 import com.mycompany.proyecto.modelo.DepartamentoPremium;
+import com.mycompany.proyecto.modelo.EstadoDepartamento;
 import com.mycompany.proyecto.modelo.Inmobiliaria;
+import com.mycompany.proyecto.modelo.NivelDemanda;
 import com.mycompany.proyecto.modelo.Proyecto;
 import com.mycompany.proyecto.excepciones.DatosInvalidosException;
 
@@ -15,14 +17,21 @@ import java.util.Locale;
 /**
  * Panel equivalente a MenuDepartamento. Primero se elige el proyecto
  * (combo), y sobre ese proyecto se listan/gestionan sus departamentos.
+ * Incluye filtros por estado y por demanda (equivalente a la sobrecarga
+ * de mostrarDepartamento() del menu de consola) y cambio rapido de estado
+ * (equivalente a la sobrecarga de modificarDatos() del menu de consola).
  */
 public class PanelDepartamento extends JPanel {
 
     private final Inmobiliaria inmobiliaria;
     private final JComboBox<String> comboProyectos = new JComboBox<>();
+    private final JComboBox<String> comboFiltroEstado = new JComboBox<>();
+    private final JComboBox<String> comboFiltroDemanda = new JComboBox<>();
     private final DefaultTableModel modeloTabla;
     private final JTable tabla;
     private final NumberFormat formatoPrecio = NumberFormat.getNumberInstance(new Locale("es", "CL"));
+
+    private static final String TODOS = "Todos";
 
     public PanelDepartamento(Inmobiliaria inmobiliaria) {
         this.inmobiliaria = inmobiliaria;
@@ -32,6 +41,21 @@ public class PanelDepartamento extends JPanel {
         JPanel panelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelSuperior.add(new JLabel("Proyecto:"));
         panelSuperior.add(comboProyectos);
+
+        comboFiltroEstado.addItem(TODOS);
+        for (EstadoDepartamento estado : EstadoDepartamento.values()) {
+            comboFiltroEstado.addItem(estado.name());
+        }
+        panelSuperior.add(new JLabel("Estado:"));
+        panelSuperior.add(comboFiltroEstado);
+
+        comboFiltroDemanda.addItem(TODOS);
+        for (NivelDemanda demanda : NivelDemanda.values()) {
+            comboFiltroDemanda.addItem(demanda.name());
+        }
+        panelSuperior.add(new JLabel("Demanda:"));
+        panelSuperior.add(comboFiltroDemanda);
+
         add(panelSuperior, BorderLayout.NORTH);
 
         modeloTabla = new DefaultTableModel(
@@ -49,17 +73,22 @@ public class PanelDepartamento extends JPanel {
         JButton btnModificar = new JButton("Modificar");
         JButton btnEliminar = new JButton("Eliminar");
         JButton btnBuscar = new JButton("Buscar");
+        JButton btnCambiarEstado = new JButton("Cambiar estado");
         panelBotones.add(btnAgregar);
         panelBotones.add(btnModificar);
         panelBotones.add(btnEliminar);
         panelBotones.add(btnBuscar);
+        panelBotones.add(btnCambiarEstado);
         add(panelBotones, BorderLayout.SOUTH);
 
         comboProyectos.addActionListener(e -> cargarTabla());
+        comboFiltroEstado.addActionListener(e -> cargarTabla());
+        comboFiltroDemanda.addActionListener(e -> cargarTabla());
         btnAgregar.addActionListener(e -> agregar());
         btnModificar.addActionListener(e -> modificar());
         btnEliminar.addActionListener(e -> eliminar());
         btnBuscar.addActionListener(e -> buscar());
+        btnCambiarEstado.addActionListener(e -> cambiarEstado());
 
         refrescarProyectos();
     }
@@ -88,7 +117,17 @@ public class PanelDepartamento extends JPanel {
         Proyecto proyecto = proyectoSeleccionado();
         if (proyecto == null) return;
 
+        String filtroEstado = (String) comboFiltroEstado.getSelectedItem();
+        String filtroDemanda = (String) comboFiltroDemanda.getSelectedItem();
+
         for (Departamento d : proyecto.getDepartamentos()) {
+            if (filtroEstado != null && !filtroEstado.equals(TODOS) && d.getEstado() != EstadoDepartamento.valueOf(filtroEstado)) {
+                continue;
+            }
+            if (filtroDemanda != null && !filtroDemanda.equals(TODOS) && d.getDemanda() != NivelDemanda.valueOf(filtroDemanda)) {
+                continue;
+            }
+
             String tipo = (d instanceof DepartamentoPremium) ? "Premium" : "Básico";
             modeloTabla.addRow(new Object[]{
                     d.getId(), d.getNumero(), d.getMetrosCuadrados(),
@@ -183,6 +222,35 @@ public class PanelDepartamento extends JPanel {
             JOptionPane.showMessageDialog(this, departamento.mostrarInformacion(), "Departamento encontrado", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "No se encontró el departamento.", "Sin resultados", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    /**
+     * Cambio rapido de estado: usa la sobrecarga Departamento.modificarDatos(EstadoDepartamento),
+     * sin pedir el resto de los datos (numero, metros, precio, demanda).
+     */
+    private void cambiarEstado() {
+        Proyecto proyecto = proyectoSeleccionado();
+        if (proyecto == null) return;
+        String id = idSeleccionado();
+        if (id == null) return;
+
+        Departamento departamento = proyecto.buscarDepartamento(id);
+        if (departamento == null) return;
+
+        EstadoDepartamento[] opciones = EstadoDepartamento.values();
+        EstadoDepartamento seleccion = (EstadoDepartamento) JOptionPane.showInputDialog(
+                this,
+                "Nuevo estado para " + id + ":",
+                "Cambiar estado",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                departamento.getEstado());
+
+        if (seleccion != null) {
+            departamento.modificarDatos(seleccion);
+            cargarTabla();
         }
     }
 }
