@@ -43,6 +43,7 @@ podrá cambiar el nombre, la ubicación y su nivel de demanda. Para terminar deb
 	-Refrescar: Refresca los datos haciendo click en el botón del mismo nombre.
 		
 -Apartado Departamentos: Podrá ver en la parte superior botones que les permitirá seleccionar qué tabla de departamentos que se desplegarán en pantalla, podrá filtrar a que proyecto pertenecen, el estado en que se encuentran (DISPONIBLE, RESERVADO y VENDIDO) y el nivel de demanda (BAJA, MEDIA y ALTA). Además, en la parte inferior encontrará las opciones "Agregar", "Modificar", "Eliminar", "Buscar" y "Cambiar estado".
+
 	-Agregar: Permite agregar un nuevo departamento. Para ello deberá hacer clic en el botón “Agregar”, a continuación deberá escribir en los campos respectivos, el código, el numero de departamento, la cantidad de metros cuadrados, el precio base, seleccionar la demanda y el estado del departamento. Adicionalmente se puede elegir entre tipo básico o premium y solo para la categoría premium se permite elegir entre 3 extras. Para terminar deberá apretar el botón "Aceptar" para agregar el Departamento, o "Cancelar" para descartar la operación.
 
 	-Modificar:Permite modificar los datos de un Departamento (excepto su código). Deberá seleccionar un departamento haciendo clic sobre él en la tabla mostrada en pantalla y luego apretar el botón de “Modificar”. Se abrirá una ventana donde podrá cambiar los datos del mismo. Para terminar deberá apretar el botón "Aceptar" para modificar el proyecto, o "Cancelar" para descartar la operación.
