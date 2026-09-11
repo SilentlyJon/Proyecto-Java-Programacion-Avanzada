@@ -12,9 +12,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
-// EJEMPLO
         Inmobiliaria inmobiliaria = new Inmobiliaria("Inmobiliaria Chile","Av. Principal","contaco@inmobilaria.cl");
-//
+
         System.out.println("Cargando los datos......");
         LectorDeDatos.cargarProyectos("proyectos.txt", inmobiliaria);
         LectorDeDatos.cargarDepartamento("departamentos.txt", inmobiliaria);
