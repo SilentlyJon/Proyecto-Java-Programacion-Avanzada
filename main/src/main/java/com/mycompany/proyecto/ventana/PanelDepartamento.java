@@ -111,7 +111,12 @@ public class PanelDepartamento extends JPanel {
         if (codigo == null) return null;
         return inmobiliaria.buscarProyecto(codigo);
     }
-
+    
+/*
+Aclaración : El método cargarTabla usa getDepartamentos, pero solo tiene acceso a leer 
+los dato y no a modificar la coleccion de departamentos. No realiza ningun set a un atributo de un 
+objeto pertenecientes a la coleccion.
+*/
     private void cargarTabla() {
         modeloTabla.setRowCount(0);
         Proyecto proyecto = proyectoSeleccionado();
