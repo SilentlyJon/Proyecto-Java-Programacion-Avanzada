@@ -7,6 +7,12 @@ import java.io.IOException;
 
 import com.mycompany.proyecto.modelo.*;
 
+/*
+Aclaración : Esta Clase usa getProyectos y getDepartamentos, pero solo tiene acceso a
+leer los dato y no a modificarlos de las colecciones. No realiza ningun set a un atributo 
+de un objeto de las colecciones.
+*/
+
 public class EscritorDeDatos {
     public static void guardarProyectos(String archivo, Inmobiliaria inmobiliaria){
         
