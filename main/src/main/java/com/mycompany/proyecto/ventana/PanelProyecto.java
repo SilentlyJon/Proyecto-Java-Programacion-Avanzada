@@ -64,6 +64,11 @@ public class PanelProyecto extends JPanel {
         if (alActualizar != null) alActualizar.run();
     }
 
+/*
+Aclaración : El método cargarTabla usa getProyectos, pero solo tiene acceso a leer 
+los dato y no a modificar la coleccion de proyectos. No realiza ningun set a un atributo de un 
+objeto pertenecientes a la coleccion.
+*/
     private void cargarTabla() {
         modeloTabla.setRowCount(0);
         for (Proyecto p : inmobiliaria.getProyectos().values()) {
