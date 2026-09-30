@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Collections;
 
 import com.mycompany.proyecto.excepciones.ProyectoDuplicadoException;
 
@@ -107,8 +108,14 @@ public class Inmobiliaria {
         this.contacto = contacto;
     }
 
+    
+    /*
+    CORRECCION: Se cambio el retorno de getDepartamento a una version que impida el
+    modificar la coleccion en otra clase, y ademas se verifico y se establecio que
+    los método que lo usen no hacer set a un atributo, para respetar el encapsulamiento.
+    */
     public Map<String, Proyecto> getProyectos(){
-        return proyectos;
+        return Collections.unmodifiableMap(proyectos);
     }
 
     public void setProyectos(Map<String, Proyecto> proyectos){
