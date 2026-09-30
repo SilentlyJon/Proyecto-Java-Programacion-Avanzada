@@ -7,6 +7,8 @@ import com.mycompany.proyecto.modelo.EstadoDepartamento;
 import com.mycompany.proyecto.modelo.Departamento;
 import com.mycompany.proyecto.excepciones.DatosInvalidosException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Proyecto {
     private String codigo;
@@ -104,8 +106,14 @@ public class Proyecto {
         this.demanda = demanda;
     }
     
-    public ArrayList<Departamento> getDepartamentos(){
-        return departamentos;
+    
+    /*
+    CORRECCION: Se cambio el retorno de getDepartamento a una version que impida el
+    modificar la coleccion en otra clase, y ademas se verifico y se establecio que
+    los método que lo usen no hacer set a un atributo, para respetar el encapsulamiento.
+    */
+    public List<Departamento> getDepartamentos(){
+        return Collections.unmodifiableList(departamentos);
     }
     
     public String toString(){
