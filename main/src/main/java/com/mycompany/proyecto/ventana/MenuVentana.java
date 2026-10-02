@@ -1,6 +1,9 @@
 package com.mycompany.proyecto.ventana;
 
+import com.mycompany.main.Persistencia.EscritorDeDatos;
 import com.mycompany.proyecto.modelo.Inmobiliaria;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.*;
 
 /**
@@ -11,7 +14,7 @@ public class MenuVentana extends JFrame {
 
     public MenuVentana(Inmobiliaria inmobiliaria) {
         super("Gestión de " + inmobiliaria.getNombre());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setSize(950, 600);
         setLocationRelativeTo(null);
 
@@ -30,5 +33,18 @@ public class MenuVentana extends JFrame {
         pestanas.addTab("Recomendador", panelRecomendador);
 
         add(pestanas);
+        
+        addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e){
+                System.out.println("Guardando datos.....");
+                EscritorDeDatos.guardarProyectos("proyectos.txt", inmobiliaria);
+                EscritorDeDatos.guardarDepartamento("departamentos.txt", inmobiliaria);
+                dispose();
+                System.exit(0);
+            }
+        });
+        
+        
     }
 }
